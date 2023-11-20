@@ -26,7 +26,7 @@
   <a href="http://webxnet.com.br/" target="blank"><img src="https://webxnet.com.br/webxnet.svg" width="200" alt="Webxnet Logo" /></a>
   
 </p>
-<h3 align="center">Webxnet NestJS kitweb</h3>
+<h3 align="center">kitweb</h3>
   <p align="center">NestJS is a progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.
   <br />
   <a href="https://docs.nestjs.com/"><strong>Explore the NestJS docs »</strong></a>
