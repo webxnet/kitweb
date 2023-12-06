@@ -54,7 +54,8 @@ enum UserRole {
 enum Gender {
   MALE
   FEMALE
-  NOT 
+  OTHER
+  UNCERTAIN
 }
 
 

@@ -1,7 +1,6 @@
 import { Controller, Get, Render } from '@nestjs/common'
 import { I18n, I18nContext } from 'nestjs-i18n'
 import { IsPublic } from 'src/decorators/is-public.decorator'
-
 import { AppService } from './app.service'
 
 @Controller()
