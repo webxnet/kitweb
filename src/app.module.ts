@@ -4,9 +4,12 @@ import { AcceptLanguageResolver, I18nModule, QueryResolver } from 'nestjs-i18n'
 import * as path from 'path'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { PrismaModule } from './prisma/prisma.module'
+import { PrismaService } from './prisma/prisma.service'
 
 @Module({
     imports: [
+        PrismaModule,
         I18nModule.forRoot({
             fallbackLanguage: 'en',
             loaderOptions: {
@@ -21,6 +24,6 @@ import { AppService } from './app.service'
         }),
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, PrismaService],
 })
 export class AppModule {}

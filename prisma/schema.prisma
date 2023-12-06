@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(uuid())
+  username       String    @unique
+  email          String    @unique  @db.VarChar(100)
+  emailVerified  DateTime?
+  password       String
+  firstName      String?   @db.VarChar(25)
+  lastName       String?   @db.VarChar(50)
+  role           UserRole? @default(USER)
+  subscribed     Boolean   @default(false)
+  privacyPolicy  Boolean
+  termOfUse      Boolean
+  isSuperUser    Boolean   @default(false) @map("is_superuser")
+  isStaff        Boolean   @default(false) @map("is_staff")
+  isAdmin        Boolean   @default(false) @map("is_admin")
+  isActive       Boolean   @default(false) @map("is_active")
+  isBlock        Boolean   @default(false) @map("is_block")
+  avatarUrl      String?   @default("/uploads/user.png") @map("avatar_url")
+  lastLogin      DateTime  @updatedAt @map("last_login")
+  gender         Gender?  
+  address        String?
+  phone          String?
+  langKey        String?
+  dateOfBirth    DateTime? @map("date_of_birth")
+  brandColor     String    @default("#292929")
+  darkBrandColor String    @default("#fafafa")
+  createdAt      DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt      DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@map(name: "users")
+  @@index([id, username, email])
+
+}
+
+enum UserRole {
+  SUPERADMIN
+  ADMIN
+  MAINTAINER
+  USER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  UNCERTAIN
+}
+
+
