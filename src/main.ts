@@ -2,6 +2,7 @@ import { Logger, ValidationPipe, VersioningType } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
+import { I18nValidationExceptionFilter, I18nValidationPipe } from 'nestjs-i18n'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
@@ -16,7 +17,15 @@ async function bootstrap() {
                 enableImplicitConversion: true,
             },
         }),
+        new I18nValidationPipe(),
     )
+
+    app.useGlobalFilters(
+        new I18nValidationExceptionFilter({
+            detailedErrors: false,
+        }),
+    )
+
     app.enableVersioning({
         type: VersioningType.URI,
     })
