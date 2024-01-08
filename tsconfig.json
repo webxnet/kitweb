@@ -4,9 +4,10 @@
       "paths": {
           "@lib/*": ["./lib/*"],
           "@common/*": ["./common/*"],
-          "@entities": ["./entities"],
           "@prisma/*": ["./prisma/*"],
-          "@user/*": ["./user/*"]
+          "@user/*": ["./user/*"],
+          "@auth/*": ["./auth/*"],
+          "@s3/*": ["./s3/*"]
       },
       "module": "commonjs",
       "declaration": true,

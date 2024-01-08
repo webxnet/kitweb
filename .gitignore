@@ -11,6 +11,10 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# CA
+ca.crt
+ca.key
+
 # env files
 .env
 

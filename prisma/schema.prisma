@@ -15,13 +15,14 @@ model User {
   username       String    @unique
   email          String    @unique  @db.VarChar(100)
   emailVerified  DateTime?
+  refreshToken   String?
   password       String
   firstName      String    @db.VarChar(25)
   lastName       String    @db.VarChar(50)
   role           UserRole  @default(USER)
   subscribed     Boolean   @default(false)
-  privacyPolicy  Boolean?
-  termOfUse      Boolean?
+  privacyPolicy  Boolean   @default(false)
+  termOfUse      Boolean   @default(false)
   isSuperUser    Boolean   @default(false) @map("is_superuser")
   isStaff        Boolean   @default(false) @map("is_staff")
   isAdmin        Boolean   @default(false) @map("is_admin")
@@ -39,7 +40,7 @@ model User {
   createdAt      DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt      DateTime? @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
 
-  @@map(name: "users")
+  @@map(name: "user")
   @@index([id, username, email])
 
 }

@@ -5,25 +5,26 @@ CREATE TYPE "UserRole" AS ENUM ('SUPERADMIN', 'ADMIN', 'MAINTAINER', 'USER');
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'OTHER', 'UNCERTAIN');
 
 -- CreateTable
-CREATE TABLE "users" (
+CREATE TABLE "user" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "email" VARCHAR(100) NOT NULL,
     "emailVerified" TIMESTAMP(3),
+    "refreshToken" TEXT,
     "password" TEXT NOT NULL,
-    "firstName" VARCHAR(25),
-    "lastName" VARCHAR(50),
-    "role" "UserRole" DEFAULT 'USER',
+    "firstName" VARCHAR(25) NOT NULL,
+    "lastName" VARCHAR(50) NOT NULL,
+    "role" "UserRole" NOT NULL DEFAULT 'USER',
     "subscribed" BOOLEAN NOT NULL DEFAULT false,
-    "privacyPolicy" BOOLEAN NOT NULL,
-    "termOfUse" BOOLEAN NOT NULL,
+    "privacyPolicy" BOOLEAN NOT NULL DEFAULT false,
+    "termOfUse" BOOLEAN NOT NULL DEFAULT false,
     "is_superuser" BOOLEAN NOT NULL DEFAULT false,
     "is_staff" BOOLEAN NOT NULL DEFAULT false,
     "is_admin" BOOLEAN NOT NULL DEFAULT false,
     "is_active" BOOLEAN NOT NULL DEFAULT false,
     "is_block" BOOLEAN NOT NULL DEFAULT false,
     "avatar_url" TEXT DEFAULT '/uploads/user.png',
-    "last_login" TIMESTAMP(3) NOT NULL,
+    "last_login" TIMESTAMP(3),
     "gender" "Gender",
     "address" TEXT,
     "phone" TEXT,
@@ -34,14 +35,14 @@ CREATE TABLE "users" (
     "created_at" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
+CREATE UNIQUE INDEX "user_username_key" ON "user"("username");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
-CREATE INDEX "users_id_username_email_idx" ON "users"("id", "username", "email");
+CREATE INDEX "user_id_username_email_idx" ON "user"("id", "username", "email");
