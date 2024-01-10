@@ -1,26 +1,29 @@
+import { CurrentUser } from '@common/decorators/current-user.decorator'
+import { IsPublic } from '@common/decorators/is-public.decorator'
+import { SetAccessRoles } from '@common/decorators/set-access-roles.decorator'
+import { CreateUserDto } from '@common/dto/create-user.dto'
+import { UpdateUserDto } from '@common/dto/update-user.dto'
+import { User } from '@common/entities/user.entity'
+import { AdminGuard } from '@common/guards/admin.guard'
+import { UserRole } from '@common/types'
 import {
     Body,
     Controller,
+    Get,
     Param,
     Patch,
-    Get,
     Post,
     Req,
     Res,
     UploadedFile,
+    UseGuards,
     UseInterceptors,
 } from '@nestjs/common'
-import { IsPublic } from '@common/decorators/is-public.decorator'
-import { CreateUserDto } from '@common/dto/create-user.dto'
-import { UserService } from './user.service'
-import { User } from '@common/entities/user.entity'
-import { CurrentUser } from '@common/decorators/current-user.decorator'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { Request, Response } from 'express'
 import { promises as fs } from 'fs'
 import { diskStorage } from 'multer'
-import { UpdateUserDto } from '@common/dto/update-user.dto'
-import { IsAdmin } from '@common/decorators/is-admin.decorator'
+import { UserService } from './user.service'
 
 @Controller()
 export class UserController {
@@ -32,13 +35,13 @@ export class UserController {
         return this.userService.createUser(createUserDto)
     }
 
-    @IsAdmin()
+    @SetAccessRoles(UserRole.ADMIN)
+    @UseGuards(AdminGuard)
     @Get('users')
     getUsers() {
         return this.userService.getUsers()
     }
 
-    @IsAdmin()
     @Get('user/:username')
     getUserByUsername(@Param() params) {
         return this.userService.getUserByUsername(params.username)

@@ -18,6 +18,9 @@ ca.key
 # env files
 .env
 
+# http
+webxnet.http
+
 # OS
 .DS_Store
 
