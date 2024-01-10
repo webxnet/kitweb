@@ -11,15 +11,15 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# http
+webxnet.http
+
 # CA
 ca.crt
 ca.key
 
 # env files
 .env
-
-# http
-webxnet.http
 
 # OS
 .DS_Store
